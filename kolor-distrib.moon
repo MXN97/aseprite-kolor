@@ -13,10 +13,12 @@ split_filepath = (path) ->
 
 
 set_color_occurence = (color) ->
-    if color_occurences[color]
-        color_occurences[color] += 1
-    else
-        color_occurences[color] = 1
+    for i, v in ipairs color_occurences
+        if v[1] == color
+            color_occurences[i][2] += 1
+            return
+    
+    table.insert(color_occurences, { color, 1 })
 
 
 create_color_table = (image) ->
@@ -52,8 +54,10 @@ init = () ->
 
     -- TODO: Sort table by colour occurences
     -- table.sort color_occurences
-    
-    colors = [k for k, v in pairs color_occurences for i = 1, v]
+
+    flattened_list = [color for i, color in ipairs color_occurences]
+
+    colors = [color[1] for color in *flattened_list for i = 1, color[2]]
 
     x = 0
     y = 0
