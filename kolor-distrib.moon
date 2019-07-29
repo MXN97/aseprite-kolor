@@ -12,6 +12,9 @@ split_filepath = (path) ->
     string.match path, '(.-)([^\\]-)%.(.+)$'
 
 
+-- Sets and updates the occurence counter for a given color
+-- Params:
+--      color - The Aseprite pixelcolor integer value that should be checked
 set_color_occurence = (color) ->
     for i, v in ipairs color_occurences
         if v[1] == color
@@ -21,16 +24,28 @@ set_color_occurence = (color) ->
     table.insert(color_occurences, { color, 1 })
 
 
+-- Creates a new table containing the colors and their occurence count of a
+-- given image. The table is structured like this:
+-- {
+--      { 4283417946,  5 },
+--      { 4283952127, 16 },
+--      { 4282384639, 20 }
+-- }
+-- Note: Only the active layer will be used
+-- Params:
+--      image - The image from which you want to create a color table
 create_color_table = (image) ->
     for x = 0, image.width - 1
         for y = 0, image.height - 1
             set_color_occurence image\getPixel(x, y)
 
 
+-- Sorting function to sort two given color subtables
 sort_by_occurence = (a, b) ->
     return a[2] > b[2]
 
 
+-- Clone and flatten the sprite used for this script
 create_new_sprite = () ->
     path, filename, ext = split_filepath sprite.filename
     new_filepath = path .. filename .. "_kolor_distrib." .. ext
@@ -44,6 +59,12 @@ create_new_sprite = () ->
     image = cel.image\clone!
 
 
+-- Draw the given colours along the pixelgrid of the sprite. Each color entry in
+-- the given list will take exactly one pixel of space, i.e. if the color
+-- #ff0000 exists three times in the list, three consecutive pixels will be
+-- colored #ff0000
+-- Params:
+--      color_list - The list of color entries
 draw = (color_list) ->
     x = 0
     y = 0
