@@ -1,4 +1,4 @@
-local sprite
+local sprite, cel, image
 color_occurences = {}
 
 
@@ -31,12 +31,7 @@ sort_by_occurence = (a, b) ->
     return a[2] > b[2]
 
 
--- Initialisation
-init = () ->
-    sprite = app.activeSprite
-    
-    return app.alert('There is no active sprite!') if not sprite
-
+create_new_sprite = () ->
     path, filename, ext = split_filepath sprite.filename
     new_filepath = path .. filename .. "_kolor_distrib." .. ext
 
@@ -47,22 +42,14 @@ init = () ->
 
     cel = app.activeCel
     image = cel.image\clone!
-    
-    create_color_table image
 
-    sprite\newLayer!
 
-    table.sort color_occurences, sort_by_occurence
-
-    flattened_list = [color for i, color in ipairs color_occurences]
-
-    colors = [color[1] for color in *flattened_list for i = 1, color[2]]
-
+draw = (color_list) ->
     x = 0
     y = 0
 
-    for i = 1, #colors
-        image\drawPixel x, y, colors[i]
+    for i = 1, #color_list
+        image\drawPixel x, y, color_list[i]
 
         x += 1
 
@@ -71,6 +58,25 @@ init = () ->
             x = 0
 
     cel.image = image
+
+
+-- Initialisation
+init = () ->
+    sprite = app.activeSprite
+    
+    return app.alert('There is no active sprite!') if not sprite
+
+    create_new_sprite!
+    
+    create_color_table image
+
+    table.sort color_occurences, sort_by_occurence
+
+    flattened_list = [color for i, color in ipairs color_occurences]
+
+    colors = [color[1] for color in *flattened_list for i = 1, color[2]]
+
+    draw colors
 
 
 init!
