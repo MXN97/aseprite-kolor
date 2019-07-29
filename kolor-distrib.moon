@@ -52,8 +52,7 @@ init = () ->
 
     sprite\newLayer!
 
-    -- TODO: Sort table by colour occurences
-    -- table.sort color_occurences
+    table.sort color_occurences, sort_by_occurence
 
     flattened_list = [color for i, color in ipairs color_occurences]
 
