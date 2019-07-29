@@ -25,6 +25,10 @@ create_color_table = (image) ->
             set_color_occurence image\getPixel(x, y)
 
 
+sort_by_occurence = (a, b) ->
+    return a[2] > b[2]
+
+
 -- Initialisation
 init = () ->
     sprite = app.activeSprite
