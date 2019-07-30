@@ -3,8 +3,7 @@
 Have fun with colours in Aseprite using the Aseprite Kolor Scripts!
 
 In order to use them, download the `.lua` files found under the current release
-and save them in Aseprite's folder for user scripts ([how to find the folder]
-[folder]).
+and save them in Aseprite's folder for user scripts ([how]).
 
 Alternatively, you can download the `.moon` files and compile them yourself!
 
@@ -22,4 +21,4 @@ to this:
 ![kraken-distrib](https://raw.githubusercontent.com/MXN97/aseprite-kolor/master/demos/distrib-distrib.png)
 
 <!-- Links -->
-[folder]: https://community.aseprite.org/t/locate-user-scripts-folder/2170
+[how]: https://community.aseprite.org/t/locate-user-scripts-folder/2170
