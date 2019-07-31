@@ -45,6 +45,20 @@ sort_by_occurrence = (a, b) ->
     return a[2] > b[2]
 
 
+pixelcolor_to_hex = (color) ->
+    c = Color color
+
+    red = string.format '%x', c.red
+    green = string.format '%x', c.green
+    blue = string.format '%x', c.blue
+
+    red = '0' .. red if red\len! < 2
+    green = '0' .. green if green\len! < 2
+    blue = '0' .. blue if blue\len! < 2
+
+    '#' .. red .. green .. blue
+
+
 -- Clone and flatten the sprite used for this script
 create_new_sprite = () ->
     path, filename, ext = split_filepath sprite.filename
