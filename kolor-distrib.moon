@@ -45,6 +45,11 @@ sort_by_occurrence = (a, b) ->
     return a[2] > b[2]
 
 
+-- Converts Aseprite's pixelcolor integer value into a string containing the
+-- combined color values using the hexadecimal base
+-- Params:
+--      color - The Aseprite pixelcolor integer you want to convert
+-- Returns: a string containing the hex representation of given color
 pixelcolor_to_hex = (color) ->
     c = Color color
 
@@ -95,6 +100,8 @@ draw = (color_list) ->
     cel.image = image
 
 
+-- Display a dialog containing the results of the color counting, limited to the
+-- top 16 colors
 display_results = (color_list) ->
     with dlg = Dialog 'Kolor-Distrib Results'
         max_index = #color_list if #color_list < 16 else 16
