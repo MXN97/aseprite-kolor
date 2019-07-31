@@ -95,6 +95,39 @@ draw = (color_list) ->
     cel.image = image
 
 
+display_results = (color_list) ->
+    with dlg = Dialog 'Kolor-Distrib Results'
+        max_index = #color_list if #color_list < 16 else 16
+
+        \label {
+            id: 'headline',
+            label: 'Color (hexcode)',
+            text: 'How often?'
+        }
+
+        \separator!
+
+        for i = 1, max_index
+            \label {
+                id: color_list[i][1],
+                label: "#{pixelcolor_to_hex color_list[i][1]}:",
+                text: tostring color_list[i][2]
+            }
+        
+            \separator!
+        
+        \button {
+            id: 'close',
+            text: 'Close'
+            onclick: () -> \close!
+        }
+
+        bounds = .bounds
+        .bounds = Rectangle 500, 500, bounds.width + 50, bounds.height
+
+        \show { wait: false }
+
+
 -- Initialisation
 init = () ->
     sprite = app.activeSprite
@@ -112,6 +145,8 @@ init = () ->
     colors = [color[1] for color in *flattened_list for i = 1, color[2]]
 
     draw colors
+
+    display_results flattened_list
 
 
 init!
