@@ -1,5 +1,5 @@
 local sprite, cel, image
-color_occurences = {}
+color_occurrences = {}
 
 
 -- Splits a given full file path into its path, file (without extension) and the
@@ -12,19 +12,19 @@ split_filepath = (path) ->
     string.match path, '(.-)([^\\]-)%.(.+)$'
 
 
--- Sets and updates the occurence counter for a given color
+-- Sets and updates the occurrence counter for a given color
 -- Params:
 --      color - The Aseprite pixelcolor integer value that should be checked
-set_color_occurence = (color) ->
-    for i, v in ipairs color_occurences
+set_color_occurrence = (color) ->
+    for i, v in ipairs color_occurrences
         if v[1] == color
-            color_occurences[i][2] += 1
+            color_occurrences[i][2] += 1
             return
     
-    table.insert(color_occurences, { color, 1 })
+    table.insert(color_occurrences, { color, 1 })
 
 
--- Creates a new table containing the colors and their occurence count of a
+-- Creates a new table containing the colors and their occurrence count of a
 -- given image. The table is structured like this:
 -- {
 --      { 4283417946,  5 },
@@ -37,11 +37,11 @@ set_color_occurence = (color) ->
 create_color_table = (image) ->
     for x = 0, image.width - 1
         for y = 0, image.height - 1
-            set_color_occurence image\getPixel(x, y)
+            set_color_occurrence image\getPixel(x, y)
 
 
 -- Sorting function to sort two given color subtables
-sort_by_occurence = (a, b) ->
+sort_by_occurrence = (a, b) ->
     return a[2] > b[2]
 
 
@@ -91,9 +91,9 @@ init = () ->
     
     create_color_table image
 
-    table.sort color_occurences, sort_by_occurence
+    table.sort color_occurrences, sort_by_occurrence
 
-    flattened_list = [color for i, color in ipairs color_occurences]
+    flattened_list = [color for i, color in ipairs color_occurrences]
 
     colors = [color[1] for color in *flattened_list for i = 1, color[2]]
 
