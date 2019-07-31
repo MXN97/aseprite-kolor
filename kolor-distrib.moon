@@ -61,7 +61,7 @@ pixelcolor_to_hex = (color) ->
     green = '0' .. green if green\len! < 2
     blue = '0' .. blue if blue\len! < 2
 
-    '#' .. red .. green .. blue
+    red .. green .. blue
 
 
 -- Clone and flatten the sprite used for this script
@@ -117,7 +117,7 @@ display_results = (color_list) ->
         for i = 1, max_index
             \label {
                 id: color_list[i][1],
-                label: "#{pixelcolor_to_hex color_list[i][1]}:",
+                label: "##{pixelcolor_to_hex color_list[i][1]}:",
                 text: tostring color_list[i][2]
             }
         
